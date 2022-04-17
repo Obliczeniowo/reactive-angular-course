@@ -3,17 +3,19 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import {Course} from "../model/course";
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 import * as moment from 'moment';
-import {catchError} from 'rxjs/operators';
-import {throwError} from 'rxjs';
 import { CoursesService } from '../services/courses.service';
 import { LoadingService } from '../services/loading.service';
+import { MessagesService } from '../services/messages.service';
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Component({
     selector: 'course-dialog',
     templateUrl: './course-dialog.component.html',
     styleUrls: ['./course-dialog.component.css'],
     providers: [
-      LoadingService
+      LoadingService,
+      MessagesService,
     ]
 })
 export class CourseDialogComponent implements AfterViewInit {
@@ -27,6 +29,7 @@ export class CourseDialogComponent implements AfterViewInit {
         private dialogRef: MatDialogRef<CourseDialogComponent>,
         private courses: CoursesService,
         private loading: LoadingService,
+        private messages: MessagesService,
         @Inject(MAT_DIALOG_DATA) course: Course,
       ) {
         this.course = course;
@@ -48,6 +51,12 @@ export class CourseDialogComponent implements AfterViewInit {
 
       this.loading.showUntilCompleted(
         this.courses.save(this.course.id, changes)
+      ).pipe(
+        catchError((err: any) => {
+          this.messages.showErrors('Can\'t save course');
+
+          return throwError(err);
+        })
       ).subscribe((resp) => {
         this.dialogRef.close(resp);
       });

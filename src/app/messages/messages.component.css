@@ -4,9 +4,12 @@
   color: #a94442;
   background-color: #f2dede;
   border: 1px solid #ebccd1;
-  padding: 20px;
+  padding: 10px;
   font-family: Roboto;
   position: relative;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 .close {
@@ -14,8 +17,4 @@
   right: 10px;
   top:10px;
   cursor: pointer;
-}
-
-.message {
-
 }

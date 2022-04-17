@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Course, sortCoursesBySeqNo } from '../model/course';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import {
+  catchError,
   filter,
   finalize,
   map,
@@ -10,6 +11,7 @@ import {
 } from 'rxjs/operators';
 import { CoursesService } from '../services/courses.service';
 import { LoadingService } from '../services/loading.service';
+import { MessagesService } from '../services/messages.service';
 
 @Component({
   selector: 'home',
@@ -24,6 +26,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private loading: LoadingService,
     public courses: CoursesService,
+    public messages: MessagesService,
   ) {}
 
   ngOnInit() {
@@ -35,6 +38,11 @@ export class HomeComponent implements OnInit {
       .get()
       .pipe(
         map((categories) => categories.sort(sortCoursesBySeqNo)),
+        catchError((err: any) => {
+          const message = 'Can\'t load courses';
+          this.messages.showErrors(message);
+          return throwError(err);
+        })
       );
 
     const loadCurses = this.loading.showUntilCompleted(courses);
