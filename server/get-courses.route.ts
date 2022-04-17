@@ -17,7 +17,7 @@ export function getAllCourses(req: Request, res: Response) {
 
              res.status(200).json({payload:Object.values(COURSES)});
 
-        }, 200);
+        }, 2000);
 }
 
 
@@ -27,7 +27,7 @@ export function getCourseById(req: Request, res: Response) {
 
     const courses:any = Object.values(COURSES);
 
-    const course = courses.find(course => course.id == courseId);
+    const course = courses.find(course => course.id === courseId);
 
     res.status(200).json(course);
 }
