@@ -1,6 +1,5 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { filter, tap } from 'rxjs/operators';
 import { CourseDialogComponent } from '../course-dialog/course-dialog.component';
 import { Course } from '../model/course';
 
@@ -13,9 +12,6 @@ export class CardsListComponent implements OnInit {
 
   @Input()
   courses: Course[] = [];
-
-  @Output()
-  coursesChanged: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private dialog: MatDialog) { }
 
@@ -31,14 +27,7 @@ export class CardsListComponent implements OnInit {
 
     dialogConfig.data = course;
 
-    const dialogRef = this.dialog.open(CourseDialogComponent, dialogConfig);
-
-    dialogRef.afterClosed()
-      .pipe(
-        filter(resp => !!resp),
-        tap(() => this.coursesChanged.emit())
-      )
-      .subscribe();
+    this.dialog.open(CourseDialogComponent, dialogConfig);
   }
 
 }

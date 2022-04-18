@@ -1,17 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, share, shareReplay } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 import { Course, sortCoursesBySeqNo } from '../model/course';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoursesService {
-
-  beginnerCourses: Course[];
-
-  advancedCourses: Course[];
 
   constructor(private http: HttpClient) { }
 

@@ -3,11 +3,11 @@
 
     <mat-tab-group>
         <mat-tab label="Beginners">
-          <courses-list [courses]="beginnerCourses | async" (coursesChanged)="load()"></courses-list>
+          <courses-list [courses]="beginnerCourses | async"></courses-list>
         </mat-tab>
 
         <mat-tab label="Advanced">
-          <courses-list [courses]="advancedCourses | async" (coursesChanged)="load()"></courses-list>
+          <courses-list [courses]="advancedCourses | async"></courses-list>
         </mat-tab>
     </mat-tab-group>
 </div>
