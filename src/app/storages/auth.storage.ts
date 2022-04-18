@@ -17,8 +17,8 @@ export class AuthStorage {
   isLoggedOut: Observable<boolean>;
 
   constructor(private http: HttpClient) {
-    this.isLoggedIn = this.user.pipe(map((user) => !!user));
-    this.isLoggedOut = this.user.pipe(map((user) => !user));
+    this.isLoggedIn = this.user.pipe(map((user: User) => !!user));
+    this.isLoggedOut = this.user.pipe(map((user: User) => !user));
 
     const user = localStorage.getItem(AUTH_DATA);
 
