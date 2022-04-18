@@ -32,7 +32,7 @@ export class CoursesStorage {
             return res.payload.sort(sortCoursesBySeqNo);
           }),
           catchError((err) => {
-            this.messages.showErrors("Can't load courses!");
+            this.messages.showErrors('Can\'t load courses!');
             return throwError(err);
           }),
           tap((resp) => this.coursesSubject.next(resp))

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MessagesService } from './services/messages.service';
+import { AuthStorage } from './storages/auth.storage';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +7,11 @@ import { MessagesService } from './services/messages.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  constructor(public messages: MessagesService) {}
+  constructor(public auth: AuthStorage) {}
 
   ngOnInit() {}
 
-  logout() {}
+  logout() {
+    this.auth.logout();
+  }
 }
